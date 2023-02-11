@@ -1,0 +1,30 @@
+GET http://localhost:5000/api/expenses
+
+###
+POST http://localhost:5000/api/expenses
+content-type: application/json
+
+{
+  "cost": "test",
+  "shop": "test",
+  "category": "Furniture"
+}
+
+###
+DELETE http://localhost:5000/api/expenses/37
+
+###
+PUT  http://localhost:5000/api/expenses
+content-type: application/json
+
+{
+  "id": 500,
+  "cost": "100.00",
+  "shop": "Ikea",
+  "category": "Furniture"
+}
+###
+GET http://localhost:5000/api/expenses/january
+
+###
+GET http://localhost:5000/api/expenses?created=1

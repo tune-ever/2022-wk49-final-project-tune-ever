@@ -1,0 +1,30 @@
+GET https://tamk-2022-syksy-backend-money-api.onrender.com/api/expenses
+
+###
+POST https://tamk-2022-syksy-backend-money-api.onrender.com/api/expenses
+content-type: application/json
+
+{
+  "cost": 100,
+  "shop": "Ikea",
+  "category": "Furniture"
+}
+
+###
+DELETE https://tamk-2022-syksy-backend-money-api.onrender.com/api/expenses/210
+
+###
+PUT  https://tamk-2022-syksy-backend-money-api.onrender.com/api/expenses
+content-type: application/json
+
+{
+  "id": 1,
+  "cost": "100.00",
+  "shop": "Ikea",
+  "category": "Furniture"
+}
+###
+GET https://tamk-2022-syksy-backend-money-api.onrender.com/api/expenses/january
+
+###
+GET https://tamk-2022-syksy-backend-money-api.onrender.com/api/expenses?shop=Ikea

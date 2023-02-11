@@ -1,0 +1,230 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: Money API - Tamk backend project
+  description: Simple api to track money
+servers:
+  - url: http://localhost:5000
+  - url: https://tamk-2022-syksy-backend-money-api.onrender.com
+paths:
+  /api/expenses:
+    get:
+      description: Returns an array of expenses
+      parameters:
+        - name: cost
+          in: query
+          description: Sort items by cost, ascending or descending (1 or 0)
+          schema:
+            type: integer
+        - name: created
+          in: query
+          description: Sort items by date ascending or descending (1 or 0)
+          schema:
+            type: integer
+        - name: shop
+          in: query
+          description: Sort some specific shop results first
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Sort some specific category results first
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    cost:
+                      type: integer
+                    created:
+                      type: string
+                    shop:
+                      type: string
+                    category:
+                      type: string
+        "404":
+          $ref: "#/components/responses/404Error"
+        "500":
+          $ref: "#/components/responses/500Error"
+        "400":
+          $ref: "#/components/responses/400Error"
+    post:
+      description: Post a new expense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cost:
+                  type: integer
+                shop:
+                  type: string
+                category:
+                  type: string
+      responses:
+        "201":
+          description: Created succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  cost:
+                    type: integer
+                  shop:
+                    type: string
+                  category:
+                    type: string
+        "404":
+          $ref: "#/components/responses/404Error"
+        "500":
+          $ref: "#/components/responses/500Error"
+        "400":
+          $ref: "#/components/responses/400Error"
+    put:
+      description: Update an existing resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                cost:
+                  type: integer
+                shop:
+                  type: string
+                category:
+                  type: string
+      responses:
+        "200":
+          description: Updated succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  cost:
+                    type: integer
+                  shop:
+                    type: string
+                  category:
+                    type: string
+        "404":
+          $ref: "#/components/responses/404Error"
+        "500":
+          $ref: "#/components/responses/500Error"
+        "400":
+          $ref: "#/components/responses/400Error"
+  /api/expenses/{id}:
+    delete:
+      description: Delete a specific expense
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Expense deleted
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Expense deleted
+        "404":
+          $ref: "#/components/responses/404Error"
+        "500":
+          $ref: "#/components/responses/500Error"
+        "400":
+          $ref: "#/components/responses/400Error"
+  /api/expenses/{month}:
+    get:
+      description: Returns an array of expenses for a specific month only
+      parameters:
+        - name: month
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    cost:
+                      type: integer
+                    created:
+                      type: string
+                    shop:
+                      type: string
+                    category:
+                      type: string
+        "404":
+          $ref: "#/components/responses/404Error"
+        "500":
+          $ref: "#/components/responses/500Error"
+        "400":
+          $ref: "#/components/responses/400Error"
+components:
+  schemas:
+    Expense:
+      type: object
+      properties:
+        id:
+          type: integer
+        cost:
+          type: integer
+        created:
+          type: string
+        shop:
+          type: string
+        category:
+          type: string
+  responses:
+    404Error:
+      description: Not Found
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: Not Found
+    400Error:
+      description: Invalid request
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: Invalid value
+    500Error:
+      description: Internal error
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: Internal server error
